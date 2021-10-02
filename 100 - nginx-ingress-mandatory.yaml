@@ -286,7 +286,7 @@ spec:
             - --udp-services-configmap=$(POD_NAMESPACE)/udp-services
             - --publish-service=$(POD_NAMESPACE)/ingress-nginx
             - --annotations-prefix=nginx.ingress.kubernetes.io
-            - --default-backend-service=ingress/default-backend-svc
+            - --default-backend-service=ingress-nginx/default-backend-svc
           securityContext:
             allowPrivilegeEscalation: true
             capabilities:
@@ -335,3 +335,53 @@ spec:
             - name: https
               containerPort: 443
             - containerPort: 18080
+
+---
+
+#kind: Service
+#apiVersion: v1
+#metadata:
+#  name: ingress-nginx
+#  namespace: ingress-nginx
+#  labels:
+#    app.kubernetes.io/name: ingress-nginx
+#    app.kubernetes.io/part-of: ingress-nginx
+#spec:
+#  externalTrafficPolicy: Local
+#  type: NodePort
+#  selector:
+#    app.kubernetes.io/name: ingress-nginx
+#    app.kubernetes.io/part-of: ingress-nginx
+#  ports:
+#    - name: http
+#      port: 80
+#      nodePort: 30000
+#    - name: http-mgmt
+#      port: 18080
+#      nodePort: 32000
+
+
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  loadBalancerIP: 168.61.38.244
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
+---

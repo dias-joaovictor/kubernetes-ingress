@@ -6,7 +6,7 @@ metadata:
     name: ingress-nginx
 spec:
   rules:
-  - host: 168.61.38.244
+  - host: iura-tst-ingress.eastus.cloudapp.azure.com
     http:
       paths:
       - pathType: Prefix
