@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    name: app-ingress
+spec:
+  rules:
+  - host: iura-tst-ingress.eastus.cloudapp.azure.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/app1"
+        backend:
+          service:
+            name: app1-svc
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: "/app2"              
+        backend:
+          service:
+            name: app2-svc
+            port:
+              number: 80

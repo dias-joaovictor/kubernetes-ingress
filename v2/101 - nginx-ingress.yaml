@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    name: ingress-nginx
+spec:
+  rules:
+  - host: iura-tst-ingress.eastus.cloudapp.azure.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/nginx_status"
+        backend:
+          service:
+            name: ingress-nginx
+            port: 
+              number: 18080
