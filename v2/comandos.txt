@@ -1,6 +1,11 @@
 kube apply -f ingress/nginx-ingress-mandatory.yaml
 
-helm install -f override-values.yaml --create-namespace -n app-namespace app1 ./helm 
+helm upgrade --install -f override-values.yaml --create-namespace -n app-namespace app1 ./helm 
+helm upgrade --install -f override-values.yaml --create-namespace -n app-namespace app2 ./helm 
+helm upgrade --install -f override-values.yaml --create-namespace -n app-namespace app3 ./helm 
+
+
+
 
 
 
