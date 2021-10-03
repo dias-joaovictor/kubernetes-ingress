@@ -1,19 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-nginx
-  namespace: ingress-nginx
+  name: app1-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
   labels:
-    name: ingress-nginx
+    name: app1-ingress
 spec:
   rules:
   - host: iura-tst-ingress.eastus.cloudapp.azure.com
     http:
       paths:
       - pathType: Prefix
-        path: "/nginx_status"
+        path: "/app1"
         backend:
           service:
-            name: ingress-nginx
+            name: app1-svc
             port: 
-              number: 18080
+              number: 80

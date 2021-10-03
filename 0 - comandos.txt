@@ -1,0 +1,36 @@
+kube create namespace app-namespace
+
+
+kube apply -f 'app1.yaml' -n app-namespace
+kube apply -f 'app1-svc.yaml' -n app-namespace
+kube apply -f 'app1-ingress.yaml' -n app-namespace
+
+kube apply -f 'app2.yaml' -n app-namespace
+kube apply -f 'app2-svc.yaml' -n app-namespace
+kube apply -f 'app2-ingress.yaml' -n app-namespace
+
+kube apply -f 'app3.yaml' -n app-namespace
+kube apply -f 'app3-svc.yaml' -n app-namespace
+kube apply -f 'app3-ingress.yaml' -n app-namespace
+
+kube apply -f '100 - nginx-ingress-mandatory.yaml'
+kube apply -f '101 - nginx-ingress.yaml'
+#kube apply -f '102 - app-ingress.yaml'  -n app-namespace
+
+
+-----Rollback
+kube delete namespace ingress-neginx app-namespace
+
+
+kube delete -f '1 - app1.yaml'
+kube delete -f '2 - app2.yaml'
+kube delete -f '3 - app1-svc.yaml'
+kube delete -f '4 - app2-svc.yaml'
+kube delete -f '5 - app3.yaml'
+kube delete -f '6 - app3-svc.yaml'
+kube delete -f '7 - app3-ingress.yaml'
+kube delete -f '5 - app3.yaml'
+
+kube delete -f '100 - nginx-ingress-mandatory.yaml'
+kube delete -f '101 - nginx-ingress.yaml'
+kube delete -f '102 - app-ingress.yaml'
