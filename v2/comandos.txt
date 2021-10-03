@@ -1,0 +1,7 @@
+helm install -f override-values.yaml app1 ./app1
+
+
+
+
+#deletar tudo
+kube delete all --all -n namespace
